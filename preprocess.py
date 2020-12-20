@@ -17,7 +17,7 @@ def preprocess_img(inputfile, output_preprocessed, zooms):
     zoom = img.header.get_zooms()[:3]
     data, affine = reslice(data, affine, zoom, zooms, 1)
     data = np.squeeze(data)
-    data = np.pad(data, [(0, 256 - len_) for len_ in data.shape], "constant")
+    data = np.pad(data, [((256 - len_) // 2, (256 - len_) // 2) for len_ in data.shape], "constant")
 
     data_sub = data - gaussian_filter(data, sigma=1)
     img = sitk.GetImageFromArray(np.copy(data_sub))
@@ -47,7 +47,7 @@ def preprocess_label(inputfile,
     zoom = img.header.get_zooms()[:3]
     data, affine = reslice(data, affine, zoom, zooms, 0)
     data = np.squeeze(data)
-    data = np.pad(data, [(0, 256 - len_) for len_ in data.shape], "constant")
+    data = np.pad(data, [((256 - len_) // 2, (256 - len_) // 2) for len_ in data.shape], "constant")
 
     if df is not None:
         tmp = np.zeros_like(data)
