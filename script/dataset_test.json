@@ -1,0 +1,36 @@
+{
+    "data": [
+        {
+            "image": "IBSR_11/IBSR_11_preprocessed.nii.gz",
+            "label": "IBSR_11/IBSR_11_segTRI_ana.nii.gz",
+            "subject": "IBSR_11",
+            "weight": 1.0
+        },
+        {
+            "image": "IBSR_12/IBSR_12_preprocessed.nii.gz",
+            "label": "IBSR_12/IBSR_12_segTRI_ana.nii.gz",
+            "subject": "IBSR_12",
+            "weight": 1.0
+        },
+        {
+            "image": "IBSR_13/IBSR_13_preprocessed.nii.gz",
+            "label": "IBSR_13/IBSR_13_segTRI_ana.nii.gz",
+            "subject": "IBSR_13",
+            "weight": 1.0
+        },
+        {
+            "image": "IBSR_14/IBSR_14_preprocessed.nii.gz",
+            "label": "IBSR_14/IBSR_14_segTRI_ana.nii.gz",
+            "subject": "IBSR_14",
+            "weight": 1.0
+        },
+        {
+            "image": "IBSR_15/IBSR_15_preprocessed.nii.gz",
+            "label": "IBSR_15/IBSR_15_segTRI_ana.nii.gz",
+            "subject": "IBSR_15",
+            "weight": 1.0
+        }
+    ],
+    "in_channels": 2,
+    "n_classes": 4
+}

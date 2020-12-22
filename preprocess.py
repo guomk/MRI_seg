@@ -9,8 +9,7 @@ import pandas as pd
 from scipy.ndimage.filters import gaussian_filter
 import SimpleITK as sitk
 
-
-def preprocess_img(inputfile, output_preprocessed, zooms):
+def preprocess_img(inputfile, output_preprocessed, zooms, args):
     img = nib.load(inputfile)
     data = img.get_fdata()
     affine = img.affine
@@ -31,16 +30,18 @@ def preprocess_img(inputfile, output_preprocessed, zooms):
     data = np.float32(data)
 
     img = nib.Nifti1Image(data, affine)
-    nib.save(img, output_preprocessed)
+    nib.save(img, os.path.join(args.input_directory, "processed", output_preprocessed))
 
 
 def preprocess_label(inputfile,
                      output_label,
                      n_classes,
                      zooms,
+                     args,
                      df=None,
                      input_key=None,
-                     output_key=None):
+                     output_key=None,
+                     ):
     img = nib.load(inputfile)
     data = img.get_fdata()
     affine = img.affine
@@ -57,7 +58,7 @@ def preprocess_label(inputfile,
     data = np.int32(data)
     assert np.max(data) < n_classes
     img = nib.Nifti1Image(data, affine)
-    nib.save(img, output_label)
+    nib.save(img, os.path.join(args.input_directory, "processed", output_label))
 
 
 def main():
@@ -125,8 +126,9 @@ def main():
     dataset_list = []
 
     for subject, weight in zip(args.subjects, args.weights):
-        if not os.path.exists(subject):
-            os.makedirs(subject)
+        output_dir = os.path.join(args.input_directory, "processed", subject)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
         filedict = {"subject": subject, "weight": weight}
 
         if args.input_image_suffix is not None:
@@ -141,7 +143,8 @@ def main():
                     subject + args.input_image_suffix
                 ),
                 filedict["image"],
-                args.zooms
+                args.zooms,
+                args=args
             )
 
         if args.label_suffix is not None:
@@ -158,9 +161,10 @@ def main():
                 filedict["label"],
                 args.n_classes,
                 args.zooms,
+                args,
                 df=df,
                 input_key=args.input_key,
-                output_key=args.output_key
+                output_key=args.output_key,
             )
 
         dataset_list.append(filedict)

@@ -29,9 +29,6 @@
             "label": "IBSR_05/IBSR_05_segTRI_ana.nii.gz",
             "subject": "IBSR_05",
             "weight": 1.0
-        },
-        {
-            
         }
     ],
     "in_channels": 2,
